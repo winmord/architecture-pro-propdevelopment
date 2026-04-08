@@ -1,0 +1,23 @@
+apiVersion: audit.k8s.io/v1
+kind: Policy
+rules:
+  - level: RequestResponse
+    verbs: ["create", "update"]
+    resources:
+      - group: ""
+        resources: ["pods"]
+    namespaces: ["audit-zone"]
+
+  - level: RequestResponse
+    verbs: ["create", "update", "patch"]
+    resources:
+      - group: "constraints.gatekeeper.sh"
+        resources: ["*"]
+
+  - level: Metadata
+    verbs: ["create", "update", "delete"]
+    resources:
+      - group: "*"
+        resources: ["*"]
+    omitStages:
+      - "RequestReceived"
