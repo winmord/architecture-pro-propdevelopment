@@ -1,0 +1,16 @@
+apiVersion: constraints.gatekeeper.sh/v1beta1
+kind: DisallowedHostPaths
+metadata:
+  name: disallowed-hostpaths
+spec:
+  match:
+    kinds:
+      - apiGroups: [""]
+        kinds: ["Pod"]
+    namespaces:
+      - "audit-zone"
+  parameters:
+    forbiddenPaths:
+      - "/var/log"
+      - "/etc"
+      - "/root"
